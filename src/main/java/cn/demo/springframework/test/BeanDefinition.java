@@ -1,4 +1,4 @@
-package cn.demo.springframework;
+package cn.demo.springframework.test;
 
 /**
  * @author BaiJY
