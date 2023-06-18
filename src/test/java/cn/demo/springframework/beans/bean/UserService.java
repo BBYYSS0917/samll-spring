@@ -1,4 +1,4 @@
-package cn.demo.springframework.test.bean;
+package cn.demo.springframework.beans.bean;
 
 public class UserService {
     public void queryUserInfo() {
