@@ -37,6 +37,11 @@
       <option name="url" value="http://www.uyunsoft.cn/nexus/content/repositories/public/" />
     </remote-repository>
     <remote-repository>
+      <option name="id" value="central" />
+      <option name="name" value="Central Repository" />
+      <option name="url" value="https://maven.aliyun.com/repository/central" />
+    </remote-repository>
+    <remote-repository>
       <option name="id" value="uyun-release" />
       <option name="name" value="public release" />
       <option name="url" value="http://www.uyunsoft.cn/nexus/content/repositories/public/" />
