@@ -1,5 +1,9 @@
 package cn.demo.springframework.test;
 
+import cn.demo.springframework.beans.PropertyValue;
+import cn.demo.springframework.beans.PropertyValues;
+import cn.demo.springframework.beans.factory.config.BeanReference;
+import cn.demo.springframework.test.bean.UserDao;
 import cn.demo.springframework.test.bean.UserService;
 import cn.demo.springframework.beans.factory.config.BeanDefinition;
 import cn.demo.springframework.beans.factory.support.DefaultListableBeanFactory;
@@ -16,24 +20,32 @@ import java.lang.reflect.Constructor;
 public class ApiTest {
 
 
-
     @Test
     public void test_BeanFactory() {
 
         //初始化BeanFactory
         DefaultListableBeanFactory beanFactory = new DefaultListableBeanFactory();
 
+        //注册UserDao
+        beanFactory.registerBeanDefinition("userDao", new BeanDefinition(UserDao.class));
+
+        //设置属性
+        PropertyValues propertyValues = new PropertyValues();
+        propertyValues.addPropertyValue(new PropertyValue("uId", "10001"));
+        propertyValues.addPropertyValue(new PropertyValue("userDao", new BeanReference("userDao")));
+
+
         //注入bean class
-        BeanDefinition beanDefinition = new BeanDefinition(UserService.class);
-        beanFactory.registerBeanDefinition("userService",beanDefinition);
+        BeanDefinition beanDefinition = new BeanDefinition(UserService.class, propertyValues);
+        beanFactory.registerBeanDefinition("userService", beanDefinition);
 
         //获取bean
-        UserService userService = (UserService) beanFactory.getBean("userService","BAI");
+        UserService userService = (UserService) beanFactory.getBean("userService");
         userService.queryUserInfo();
     }
 
     @Test
-    public void  test_newInstance() throws IllegalAccessException,InstantiationException {
+    public void test_newInstance() throws IllegalAccessException, InstantiationException {
         UserService userService = UserService.class.newInstance();
         System.out.println(userService);
     }
@@ -69,8 +81,6 @@ public class ApiTest {
         Object object = enhancer.create(new Class[]{String.class}, new Object[]{"BAI"});
         System.out.println(object);
     }
-
-
 
 
 }
