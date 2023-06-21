@@ -2,7 +2,6 @@ package cn.demo.springframework.beans.factory.xml;
 
 import cn.demo.springframework.beans.BeansException;
 import cn.demo.springframework.beans.PropertyValue;
-import cn.demo.springframework.beans.factory.BeanDefinitonReader;
 import cn.demo.springframework.beans.factory.config.BeanDefinition;
 import cn.demo.springframework.beans.factory.config.BeanReference;
 import cn.demo.springframework.beans.factory.support.AbstractBeanDefinitonReader;

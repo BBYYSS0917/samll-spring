@@ -1,6 +1,5 @@
 package cn.demo.springframework.beans.factory.support;
 
-import cn.demo.springframework.beans.factory.BeanDefinitonReader;
 import cn.demo.springframework.core.io.DefaultResourceLoader;
 import cn.demo.springframework.core.io.ResourceLoader;
 

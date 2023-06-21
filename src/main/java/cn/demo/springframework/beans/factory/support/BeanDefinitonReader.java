@@ -1,4 +1,4 @@
-package cn.demo.springframework.beans.factory;
+package cn.demo.springframework.beans.factory.support;
 
 import cn.demo.springframework.beans.BeansException;
 import cn.demo.springframework.beans.factory.support.BeanDefinitionRegistry;
