@@ -15,9 +15,9 @@ public interface BeanDefinitonReader {
 
     ResourceLoader getResourceLoader();
 
-    void loadBeanDefinitons(Resource resource) throws BeansException;
+    void loadBeanDefinitions(Resource resource) throws BeansException;
 
-    void loadBeanDefinitons(Resource... resources) throws BeansException;
+    void loadBeanDefinitions(Resource... resources) throws BeansException;
 
-    void loadBeanDefinitons(String location) throws BeansException;
+    void loadBeanDefinitions(String location) throws BeansException;
 }
