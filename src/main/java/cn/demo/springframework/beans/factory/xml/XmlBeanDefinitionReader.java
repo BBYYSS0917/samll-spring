@@ -4,7 +4,7 @@ import cn.demo.springframework.beans.BeansException;
 import cn.demo.springframework.beans.PropertyValue;
 import cn.demo.springframework.beans.factory.config.BeanDefinition;
 import cn.demo.springframework.beans.factory.config.BeanReference;
-import cn.demo.springframework.beans.factory.support.AbstractBeanDefinitonReader;
+import cn.demo.springframework.beans.factory.support.AbstractBeanDefinitionReader;
 import cn.demo.springframework.beans.factory.support.BeanDefinitionRegistry;
 import cn.demo.springframework.core.io.Resource;
 import cn.demo.springframework.core.io.ResourceLoader;
@@ -21,7 +21,7 @@ import java.io.InputStream;
  * @author BaiJY
  * @date 2023/06/20
  **/
-public class XmlBeanDefinitionReader extends AbstractBeanDefinitonReader {
+public class XmlBeanDefinitionReader extends AbstractBeanDefinitionReader {
     public XmlBeanDefinitionReader(BeanDefinitionRegistry registry) {
         super(registry);
     }
@@ -33,7 +33,7 @@ public class XmlBeanDefinitionReader extends AbstractBeanDefinitonReader {
     @Override
     public void loadBeanDefinitions(Resource resource) throws BeansException {
         try (InputStream inputStream = resource.getInputStream()) {
-            doLoadBeanDefinitons(inputStream);
+            doLoadBeanDefinitions(inputStream);
         } catch (IOException | ClassNotFoundException e) {
             throw new BeansException("IOException parsing XML document from " + resource, e);
         }
@@ -53,7 +53,14 @@ public class XmlBeanDefinitionReader extends AbstractBeanDefinitonReader {
         loadBeanDefinitions(resource);
     }
 
-    protected void doLoadBeanDefinitons(InputStream inputStream) throws ClassNotFoundException {
+    @Override
+    public void loadBeanDefinitions(String... locations) throws BeansException {
+        for (String location : locations) {
+            loadBeanDefinitions(location);
+        }
+    }
+
+    protected void doLoadBeanDefinitions(InputStream inputStream) throws ClassNotFoundException {
 
         Document doc = XmlUtil.readXML(inputStream);
         Element root = doc.getDocumentElement();
@@ -81,7 +88,7 @@ public class XmlBeanDefinitionReader extends AbstractBeanDefinitonReader {
                 beanName = StrUtil.lowerFirst(clazz.getSimpleName());
             }
 
-            BeanDefinition beanDefiniton = new BeanDefinition(clazz);
+            BeanDefinition beanDefinition = new BeanDefinition(clazz);
 
             //读取属性并填充
             for (int j = 0; j < bean.getChildNodes().getLength(); j++) {
@@ -101,13 +108,13 @@ public class XmlBeanDefinitionReader extends AbstractBeanDefinitonReader {
                 Object value = StrUtil.isNotEmpty(attrRef) ? new BeanReference(attrRef) : attrValue;
                 //创建属性信息
                 PropertyValue propertyValue = new PropertyValue(attrName, value);
-                beanDefiniton.getPropertyValues().addPropertyValue(propertyValue);
+                beanDefinition.getPropertyValues().addPropertyValue(propertyValue);
             }
 
-            if (getRegistry().containsBeanDefiniton(beanName)) {
+            if (getRegistry().containsBeanDefinition(beanName)) {
                 throw new BeansException("Duplicate beanName[" + beanName + "] is not allowed");
             }
-            getRegistry().registerBeanDefinition(beanName, beanDefiniton);
+            getRegistry().registerBeanDefinition(beanName, beanDefinition);
         }
     }
 }

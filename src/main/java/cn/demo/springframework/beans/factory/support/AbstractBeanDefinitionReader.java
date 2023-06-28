@@ -7,16 +7,16 @@ import cn.demo.springframework.core.io.ResourceLoader;
  * @author BaiJY
  * @date 2023/06/20
  **/
-public abstract class AbstractBeanDefinitonReader implements BeanDefinitonReader {
+public abstract class AbstractBeanDefinitionReader implements BeanDefinitionReader {
 
     private final BeanDefinitionRegistry registry;
     private ResourceLoader resourceLoader;
 
-    protected AbstractBeanDefinitonReader(BeanDefinitionRegistry registry) {
+    protected AbstractBeanDefinitionReader(BeanDefinitionRegistry registry) {
         this(registry, new DefaultResourceLoader());
     }
 
-    public AbstractBeanDefinitonReader(BeanDefinitionRegistry registry, ResourceLoader resourceLoader) {
+    public AbstractBeanDefinitionReader(BeanDefinitionRegistry registry, ResourceLoader resourceLoader) {
         this.registry = registry;
         this.resourceLoader = resourceLoader;
     }

@@ -19,19 +19,19 @@ public interface BeanDefinitionRegistry {
      * @return
      * @throws BeansException
      */
-    BeanDefinition getBeanDefiniton(String beanName) throws BeansException;
+    BeanDefinition getBeanDefinition(String beanName) throws BeansException;
 
     /**
      * 判断是否包含指定名称的BeanDefinition
      * @param beanName
      * @return
      */
-    boolean containsBeanDefiniton(String beanName);
+    boolean containsBeanDefinition(String beanName);
 
     /**
      * Return the names of all beans defined in this registry.
      *
      * 返回注册表中所有的Bean名称
      */
-    String[] getBeanDefinitonNames();
+    String[] getBeanDefinitionNames();
 }
